@@ -1,0 +1,12 @@
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+writable/cache/*
+writable/debugbar/*
+writable/logs/*
+writable/session/*
+writable/uploads/*
+vendor
+composer.lock
