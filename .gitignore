@@ -10,3 +10,4 @@ writable/session/*
 writable/uploads/*
 vendor
 composer.lock
+app/Config/Database.php
