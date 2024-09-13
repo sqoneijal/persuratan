@@ -11,3 +11,5 @@ writable/uploads/*
 vendor
 composer.lock
 app/Config/Database.php
+node_modules
+package-lock.json
