@@ -1,0 +1,11 @@
+services:
+   persuratan-api:
+      container_name: persuratan-api
+      build:
+         context: ./
+         dockerfile: ./Dockerfile
+      ports:
+         - 1003:80
+      volumes:
+         - ./:/var/www/html
+      restart: always

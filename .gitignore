@@ -13,3 +13,5 @@ composer.lock
 app/Config/Database.php
 node_modules
 package-lock.json
+app/Controllers/BaseController.php
+app/Libraries/Feeder.php

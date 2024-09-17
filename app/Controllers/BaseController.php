@@ -45,8 +45,6 @@ abstract class BaseController extends Controller
    public $post;
    public $getVar;
 
-   protected $publish = false;
-
    /**
     * @return void
     */
@@ -57,5 +55,16 @@ abstract class BaseController extends Controller
 
       $this->post = $request->getPost();
       $this->getVar = $request->getVar();
+   }
+
+   public function output(bool $status, array $content, string $message = '')
+   {
+      if ($message === '') {
+         $msg_response = $status ? 'OK' : 'Not OK';
+      } else {
+         $msg_response = $message;
+      }
+
+      return $this->respond(['status' => $status, 'data' => $content, 'message' => $msg_response]);
    }
 }

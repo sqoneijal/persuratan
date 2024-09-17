@@ -1,8 +1,8 @@
 <?php
 
-use CodeIgniter\Router\RouteCollection;
+$routes = service('routes');
 
-/**
- * @var RouteCollection $routes
- */
-$routes->get('/', 'Mahasiswa::index');
+$routes->group('mahasiswa', function ($routes) {
+   $routes->get('/', 'Mahasiswa::index');
+   $routes->get('(:any)', 'Mahasiswa::detail/$1');
+});
