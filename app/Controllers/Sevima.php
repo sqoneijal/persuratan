@@ -16,8 +16,8 @@ class Sevima extends BaseController
          'headers' => [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'X-App-Key' => '8CCBDA6F59EC00253E1A5A84D8388849',
-            'X-Secret-Key' => '5D9D405C0A1078F6B3C41F562A6C33E60CC79A3F80E8339E82CF1D6C86A12BE9',
+            'X-App-Key' => env('SEVIMA_APP_KEY'),
+            'X-Secret-Key' => env('SEVIMA_APP_SECRET')
          ]
       ]);
    }
