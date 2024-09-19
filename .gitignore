@@ -1,3 +1,6 @@
+.vscode/sftp.json
+.env
+
 # OS X
 .DS_Store
 .AppleDouble
