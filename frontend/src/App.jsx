@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import Keycloak from "keycloak-js";
-import React, { useLayoutEffect } from "react";
+import axios from "axios";
+import React, { useLayoutEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bars } from "react-loader-spinner";
-import { Provider } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { HashRouter as Router } from "react-router-dom";
+import * as h from "~/src/Helpers";
+import { setModule } from "~/src/redux";
 import redux from "./redux";
 
 import "~/assets/css/all.min.css";
@@ -16,39 +18,72 @@ import "~/assets/css/magnific-popup.css";
 import "~/assets/css/main.css";
 import "~/assets/css/nice-select.css";
 import "~/assets/css/owl.min.css";
+import "~/node_modules/toastr/build/toastr.css";
 
 const Header = React.lazy(() => import("./Header"));
 const Routing = React.lazy(() => import("./Routing"));
 
 const App = () => {
+   const { module } = useSelector((e) => e.redux);
+   const dispatch = useDispatch();
+
+   // bool
+   const [isLoading, setIsLoading] = useState(true);
+
+   const initPage = () => {
+      axios
+         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/220102170`)])
+         .then(
+            axios.spread((...res) => {
+               const [periode, biodata] = res;
+               if (h.objLength(periode.data) && h.objLength(biodata.data)) {
+                  if (periode.data.status && biodata.data.status) {
+                     dispatch(setModule({ ...module, periode: periode.data.data, biodata: biodata.data.data }));
+                  } else {
+                     h.notification(false, "Gagal mengambil data dari sevima!");
+                     return;
+                  }
+               }
+            })
+         )
+         .finally(() => {
+            setIsLoading(false);
+         });
+   };
+
    useLayoutEffect(() => {
-      const keycloak = new Keycloak({
+      initPage();
+
+      /* const keycloak = new Keycloak({
          url: "https://keycloak.ar-raniry.ac.id/auth/",
          realm: "uinar",
-         clientId: "siakad",
+         clientId: "mael",
       });
 
-      // keycloak.init({ onLoad: "login-required" }).then((res) => {
-      //    console.log(res);
-      // });
+      keycloak.init({ onLoad: "login-required" }).then((res) => {
+         console.log(res);
+      }); */
       return () => {};
    }, []);
 
-   return (
-      <React.Suspense
-         fallback={
-            <Bars
-               visible={true}
-               color="#4fa94d"
-               radius="9"
-               wrapperStyle={{
-                  alignItems: "center",
-                  display: "flex",
-                  justifyContent: "center",
-               }}
-               wrapperClass="page-loader flex-column bg-dark bg-opacity-25"
-            />
-         }>
+   const loader = (
+      <Bars
+         visible={true}
+         color="#4fa94d"
+         radius="9"
+         wrapperStyle={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+         }}
+         wrapperClass="page-loader flex-column bg-dark bg-opacity-25"
+      />
+   );
+
+   return isLoading ? (
+      loader
+   ) : (
+      <React.Suspense fallback={loader}>
          <Header />
          <Routing />
       </React.Suspense>

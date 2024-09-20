@@ -4,7 +4,6 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import toastr from "toastr";
 import { uid } from "uid/secure";
-import "~/node_modules/toastr/build/toastr.css";
 moment.locale("id");
 
 export const form_text = (label, name, config = {}, required = false, errors = {}) => {
@@ -243,7 +242,7 @@ export const error_code_http = (code) => {
    return typeof config[code] === "undefined" ? "Terjadi sesuatu kesalahan" : config[code];
 };
 
-export const get = async (url, dynamic = false) => {
+export const get = async (url) => {
    try {
       const mutex = {
          locked: false,
@@ -267,7 +266,7 @@ export const get = async (url, dynamic = false) => {
 
       await mutex.lock();
 
-      const send = axios.get(dynamic ? url : `${window.location.pathname}${url}`, {
+      const send = axios.get(`http://192.168.176.232:1003${url}`, {
          signal: abortSignal(10_000),
       });
       send.then((res) => {
@@ -289,4 +288,8 @@ export const get = async (url, dynamic = false) => {
    } catch (error) {
       // error
    }
+};
+
+export const objLength = (content = {}) => {
+   return Object.keys(content).length > 0;
 };

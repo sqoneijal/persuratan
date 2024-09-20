@@ -15,3 +15,11 @@ function sevima($routes): void
       $routes->get('biodata/(:any)', 'Sevima::getDetailBiodata/$1');
    });
 }
+
+akademik($routes);
+function akademik($routes): void
+{
+   $routes->group('akademik', ['namespace' => 'App\Controllers\Akademik'], function ($routes) {
+      $routes->get('surataktifkuliah/(:any)', 'SuratAktifKuliah::index/$1');
+   });
+}

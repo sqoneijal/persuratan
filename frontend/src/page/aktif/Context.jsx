@@ -1,10 +1,16 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Bars } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 
 const Header = React.lazy(() => import("./Header"));
 
 const Context = () => {
+   const { module } = useSelector((e) => e.redux);
+   const { periode, biodata } = module;
+
+   const initPage = () => {};
+
    const loader = (
       <Bars
          visible={true}
