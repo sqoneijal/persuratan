@@ -32,7 +32,7 @@ const App = () => {
 
    const initPage = () => {
       axios
-         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/220102170`)])
+         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/190503096`)])
          .then(
             axios.spread((...res) => {
                const [periode, biodata] = res;

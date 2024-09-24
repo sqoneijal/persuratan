@@ -39,11 +39,13 @@ abstract class BaseController extends Controller
     *
     * @var list<string>
     */
-   protected $helpers = ['html'];
+   protected $helpers = ['html', 'autoload'];
 
    public $data;
    public $post;
    public $getVar;
+
+   public $curl;
 
    /**
     * @return void
@@ -55,6 +57,16 @@ abstract class BaseController extends Controller
 
       $this->post = $request->getPost();
       $this->getVar = $request->getVar();
+
+      $this->curl = service('curlrequest', [
+         'baseURI' => env('SEVIMA_PATH_URL'),
+         'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'X-App-Key' => env('SEVIMA_APP_KEY'),
+            'X-Secret-Key' => env('SEVIMA_APP_SECRET')
+         ]
+      ]);
    }
 
    public function output(bool $status, array $content, string $message = '')

@@ -7,6 +7,25 @@ use App\Models\Common;
 class SuratAktifKuliah extends Common
 {
 
+   public function getDetailCetak(int $id): array
+   {
+      $table = $this->db->table('tb_aktif_kuliah');
+      $table->where('id', $id);
+
+      $get = $table->get();
+      $data = $get->getRowArray();
+      $fieldNames = $get->getFieldNames();
+      $get->freeResult();
+
+      $response = [];
+      if (isset($data)) {
+         foreach ($fieldNames as $field) {
+            $response[$field] = ($data[$field] ? trim($data[$field]) : (string) $data[$field]);
+         }
+      }
+      return $response;
+   }
+
    public function getDetailSuratAktifKuliah(array $post): array
    {
       try {

@@ -20,6 +20,11 @@ akademik($routes);
 function akademik($routes): void
 {
    $routes->group('akademik', ['namespace' => 'App\Controllers\Akademik'], function ($routes) {
+      $routes->group('surataktifkuliah', function ($routes) {
+         $routes->get('cetak/(:num)', 'SuratAktifKuliah::cetak/$1');
+      });
+
+
       $routes->post('surataktifkuliah', 'SuratAktifKuliah::index');
    });
 }

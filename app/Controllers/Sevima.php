@@ -7,21 +7,6 @@ use App\Controllers\BaseController;
 class Sevima extends BaseController
 {
 
-   protected $curl;
-
-   public function __construct()
-   {
-      $this->curl = service('curlrequest', [
-         'baseURI' => 'https://api.sevimaplatform.com/siakadcloud/v1/',
-         'headers' => [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json',
-            'X-App-Key' => env('SEVIMA_APP_KEY'),
-            'X-Secret-Key' => env('SEVIMA_APP_SECRET')
-         ]
-      ]);
-   }
-
    public function getDetailBiodata(string $slug): object
    {
       try {

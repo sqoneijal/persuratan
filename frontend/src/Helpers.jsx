@@ -1,10 +1,10 @@
 import axios from "axios";
 import moment from "moment";
+import "moment/locale/id";
 import React from "react";
-import { Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import toastr from "toastr";
 import { uid } from "uid/secure";
-moment.locale("id");
 
 export const form_text = (label, name, config = {}, required = false, errors = {}) => {
    const uniqueID = `${name}_${uid(32)}`;
@@ -292,4 +292,46 @@ export const get = async (url) => {
 
 export const objLength = (content = {}) => {
    return Object.keys(content).length > 0;
+};
+
+export const detail_label = (label, value, span = 0) => {
+   return (
+      <Row className="mb-2">
+         <Col md={span} sm={12}>
+            {label}
+         </Col>
+         <Col md={12 - span} sm={12}>
+            <span title={value} className={`fw-bold fs-6 text-gray-800`}>
+               {value || "-"}
+            </span>
+         </Col>
+      </Row>
+   );
+};
+
+export const buttons = (label, isLoading = false, init = {}) => {
+   // Menghapus semua spasi dalam string
+   const tanpaSpasi = label.replace(/\s+/g, "");
+
+   // Mengubah huruf menjadi huruf kecil (lowercase)
+   const hurufKecil = tanpaSpasi.toLowerCase();
+
+   return (
+      <Button
+         type="submit"
+         id={hurufKecil}
+         name={hurufKecil}
+         disabled={isLoading}
+         size="sm"
+         className={`fw-bold border-0 ${parse("className", init)}`}
+         {...init}>
+         {isLoading ? (
+            <span className="indicator-label">
+               Loading... <span className="spinner-border spinner-border-sm align-middle ms-2" />
+            </span>
+         ) : (
+            <span className="indicator-label">{label}</span>
+         )}
+      </Button>
+   );
 };
