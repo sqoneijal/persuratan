@@ -23,7 +23,7 @@ const Routing = () => {
    return (
       <Routes>
          <Route path="/" loader={loader} element={<Home />} />
-         <Route path="aktif" loader={loader} element={<Aktif />} />
+         <Route path="/aktif" loader={loader} element={<Aktif />} />
       </Routes>
    );
 };

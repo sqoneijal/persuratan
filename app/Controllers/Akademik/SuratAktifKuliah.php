@@ -28,6 +28,23 @@ class SuratAktifKuliah extends BaseController
       return $this->respond($response);
    }
 
+   public function pengajuan(): object
+   {
+      $response = ['status' => false, 'errors' => []];
+
+      $validation = new Validate();
+      if ($this->validate($validation->pengajuan())) {
+         $model = new Model();
+         $submit = $model->pengajuan($this->post);
+
+         $response = array_merge($submit, ['errors' => []]);
+      } else {
+         $response['msg_response'] = 'Tolong periksa kembali inputan anda!';
+         $response['errors'] = \Config\Services::validation()->getErrors();
+      }
+      return $this->respond($response);
+   }
+
    public function getDetailBiodata(string $slug): array
    {
       try {

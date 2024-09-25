@@ -21,6 +21,8 @@ RUN apk --no-cache --update add \
    php83-session \
    php83-pecl-redis \
    php83-fileinfo \
+   php83-xml \
+   php83-gd \
    tzdata \
    && rm -rf /var/cache/apk/*
 

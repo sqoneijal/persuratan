@@ -18,3 +18,4 @@ node_modules
 package-lock.json
 app/Controllers/BaseController.php
 app/Libraries/Feeder.php
+frontend/bundle

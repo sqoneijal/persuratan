@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { Bars } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import * as h from "~/src/Helpers";
@@ -7,6 +6,7 @@ import { setModule } from "~/src/redux";
 
 const Header = React.lazy(() => import("./Header"));
 const StatusPengajuan = React.lazy(() => import("./StatusPengajuan"));
+const FormsPengajuan = React.lazy(() => import("./FormsPengajuan"));
 
 const Context = () => {
    const { module } = useSelector((e) => e.redux);
@@ -54,7 +54,7 @@ const Context = () => {
    );
 
    useLayoutEffect(() => {
-      if (h.objLength(periode) && h.objLength(biodata)) initPage(h.parse("nim", biodata), "20232");
+      if (h.objLength(periode) && h.objLength(biodata)) initPage(h.parse("nim", biodata), periode.nama_singkat);
       return () => {};
    }, [periode, biodata]);
 
@@ -63,15 +63,16 @@ const Context = () => {
    ) : (
       <React.Suspense fallback={loader}>
          <Header />
-         <section className="privacy-section padding-top padding-bottom">
+         {h.objLength(detailContent) ? <StatusPengajuan /> : <FormsPengajuan />}
+         {/* <section className="padding-top padding-bottom">
             <Container>
                <Row className="justify-content-between">
                   <Col lg={12} xl={12}>
-                     <div className="privacy-item">{h.objLength(detailContent) ? <StatusPengajuan /> : ""}</div>
+                     {h.objLength(detailContent) ? <StatusPengajuan /> : <FormsPengajuan />}
                   </Col>
                </Row>
             </Container>
-         </section>
+         </section> */}
       </React.Suspense>
    );
 };

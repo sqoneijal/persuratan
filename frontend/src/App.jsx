@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import axios from "axios";
+import Keycloak from "keycloak-js";
 import React, { useLayoutEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bars } from "react-loader-spinner";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useLocation } from "react-router-dom";
 import * as h from "~/src/Helpers";
-import { setModule } from "~/src/redux";
+import { setInit, setModule } from "~/src/redux";
 import redux from "./redux";
 
 import "~/assets/css/all.min.css";
@@ -26,13 +27,14 @@ const Routing = React.lazy(() => import("./Routing"));
 const App = () => {
    const { module } = useSelector((e) => e.redux);
    const dispatch = useDispatch();
+   const location = useLocation();
 
    // bool
    const [isLoading, setIsLoading] = useState(true);
 
-   const initPage = () => {
+   const initPage = (nim) => {
       axios
-         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/190503096`)])
+         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/${nim}`)])
          .then(
             axios.spread((...res) => {
                const [periode, biodata] = res;
@@ -52,17 +54,27 @@ const App = () => {
    };
 
    useLayoutEffect(() => {
-      initPage();
-
-      /* const keycloak = new Keycloak({
+      const keycloak = new Keycloak({
          url: "https://keycloak.ar-raniry.ac.id/auth/",
          realm: "uinar",
          clientId: "mael",
       });
 
-      keycloak.init({ onLoad: "login-required" }).then((res) => {
-         console.log(res);
-      }); */
+      keycloak
+         .init({
+            onLoad: "check-sso",
+            silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`,
+         })
+         .then((res) => {
+            if (!res) {
+               keycloak.login();
+            }
+         });
+
+      keycloak.onAuthSuccess = (e) => {
+         dispatch(setInit(keycloak.idTokenParsed));
+         initPage(keycloak.idTokenParsed.preferred_username);
+      };
       return () => {};
    }, []);
 
@@ -103,7 +115,3 @@ root.render(
       </Router>
    </Provider>
 );
-
-if (process.env.NODE_ENV === "development") {
-   new EventSource("http://localhost:8081/esbuild").addEventListener("change", () => location.reload());
-}
