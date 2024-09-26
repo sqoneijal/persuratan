@@ -20,7 +20,7 @@ const Context = () => {
       const formData = { nim, periode };
 
       setIsLoading(true);
-      const fetch = h.post(`/akademik/surataktifkuliah`, formData);
+      const fetch = h.post(`/akademik/surataktifkuliah/status`, formData);
       fetch.then((res) => {
          if (typeof res === "undefined") return;
 
@@ -53,26 +53,44 @@ const Context = () => {
       />
    );
 
+   const getStatusPembayaranSPP = (nim, periode) => {
+      const formData = { nim, periode };
+
+      setIsLoading(true);
+      const fetch = h.post(`/sevima/statuspembayaranspp`, formData);
+      fetch.then((res) => {
+         if (typeof res === "undefined") return;
+
+         const { data } = res;
+         if (typeof data.code !== "undefined" && h.parse("code", data) !== 200) {
+            h.notification(false, h.parse("message", data));
+            return;
+         }
+
+         if (data.status) {
+            if (data.data) {
+               initPage(nim, periode);
+            } else {
+               h.notification(false, "Anda belum melakukan pembayaran SPP semester aktif sekarang!");
+               return;
+            }
+         }
+      });
+   };
+
    useLayoutEffect(() => {
-      if (h.objLength(periode) && h.objLength(biodata)) initPage(h.parse("nim", biodata), periode.nama_singkat);
+      if (h.objLength(periode) && h.objLength(biodata)) getStatusPembayaranSPP(h.parse("nim", biodata), periode.nama_singkat);
       return () => {};
    }, [periode, biodata]);
+
+   const props = { initPage };
 
    return isLoading ? (
       loader
    ) : (
       <React.Suspense fallback={loader}>
          <Header />
-         {h.objLength(detailContent) ? <StatusPengajuan /> : <FormsPengajuan />}
-         {/* <section className="padding-top padding-bottom">
-            <Container>
-               <Row className="justify-content-between">
-                  <Col lg={12} xl={12}>
-                     {h.objLength(detailContent) ? <StatusPengajuan /> : <FormsPengajuan />}
-                  </Col>
-               </Row>
-            </Container>
-         </section> */}
+         {h.objLength(detailContent) ? <StatusPengajuan /> : <FormsPengajuan {...props} />}
       </React.Suspense>
    );
 };

@@ -1,0 +1,10 @@
+services:
+   mael-frontend:
+      container_name: mael-frontend
+      build:
+         dockerfile: ./Dockerfile
+      ports:
+         - 1004:80
+      volumes:
+         - ./:/var/www/html
+      restart: always

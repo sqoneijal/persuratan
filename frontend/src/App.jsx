@@ -71,7 +71,7 @@ const App = () => {
             }
          });
 
-      keycloak.onAuthSuccess = (e) => {
+      keycloak.onAuthSuccess = () => {
          dispatch(setInit(keycloak.idTokenParsed));
          initPage(keycloak.idTokenParsed.preferred_username);
       };

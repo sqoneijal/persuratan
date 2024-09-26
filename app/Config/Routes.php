@@ -13,6 +13,8 @@ function sevima($routes): void
    $routes->group('sevima', function ($routes) {
       $routes->get('periodeaktif', 'Sevima::getPeriodeAktif');
       $routes->get('biodata/(:any)', 'Sevima::getDetailBiodata/$1');
+
+      $routes->post('statuspembayaranspp', 'Sevima::getStatusPembayaranSPP');
    });
 }
 
@@ -29,7 +31,7 @@ function akademikSuratAktifKuliah($routes): void
    $routes->group('surataktifkuliah', function ($routes) {
       $routes->get('cetak/(:num)', 'SuratAktifKuliah::cetak/$1');
 
-      $routes->post('surataktifkuliah', 'SuratAktifKuliah::index');
+      $routes->post('status', 'SuratAktifKuliah::status');
       $routes->post('pengajuan', 'SuratAktifKuliah::pengajuan');
    });
 }

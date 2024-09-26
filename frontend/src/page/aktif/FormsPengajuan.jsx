@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import * as h from "~/src/Helpers";
 
-const FormsPengajuan = () => {
+const FormsPengajuan = ({ initPage }) => {
    const { init, module } = useSelector((e) => e.redux);
    const { periode } = module;
 
@@ -15,7 +15,7 @@ const FormsPengajuan = () => {
       const formData = { nim: h.parse("preferred_username", init), periode: h.parse("nama_singkat", periode) };
 
       setIsSubmit(true);
-      const fetch = h.post(`/akademik/pengajuan`, formData);
+      const fetch = h.post(`/akademik/surataktifkuliah/pengajuan`, formData);
       fetch.then((res) => {
          if (typeof res === "undefined") return;
 
@@ -25,9 +25,11 @@ const FormsPengajuan = () => {
             return;
          }
 
-         h.notification(data.status, data.msg_response);
+         h.notification(data.status, data.message);
 
          if (!data.status) return;
+
+         initPage(h.parse("preferred_username", init), h.parse("nama_singkat", periode));
       });
       fetch.finally(() => {
          setIsSubmit(false);

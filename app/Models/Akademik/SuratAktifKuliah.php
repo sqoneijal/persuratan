@@ -15,16 +15,16 @@ class SuratAktifKuliah extends Common
          $id_semester = substr($post['periode'], 4, 1);
 
          $table = $this->db->table('tb_aktif_kuliah');
-         $table->insert([
+         $table->ignore(true)->insert([
             'thn_ajaran' => $tahun_ajaran,
             'id_semester' => $id_semester,
             'uploaded' => new RawSql('now()'),
             'nim' => $post['nim']
          ]);
 
-         return ['status' => true, 'data' => $this->getDetailSuratAktifKuliah($post), 'msg_response' => 'Data berhasil disimpan.'];
+         return ['status' => true, 'data' => $this->getDetailSuratAktifKuliah($post)['data'], 'message' => 'Pengajuan berhasil dilakukan.'];
       } catch (\Exception $e) {
-         return ['status' => false, 'msg_response' => $e->getMessage()];
+         return ['status' => false, 'message' => $e->getMessage()];
       }
    }
 

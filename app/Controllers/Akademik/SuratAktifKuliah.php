@@ -11,7 +11,7 @@ use chillerlan\QRCode\QRCode;
 class SuratAktifKuliah extends BaseController
 {
 
-   public function index(): object
+   public function status(): object
    {
       $response = ['status' => false, 'errors' => []];
 
@@ -39,7 +39,7 @@ class SuratAktifKuliah extends BaseController
 
          $response = array_merge($submit, ['errors' => []]);
       } else {
-         $response['msg_response'] = 'Tolong periksa kembali inputan anda!';
+         $response['message'] = 'Tolong periksa kembali inputan anda!';
          $response['errors'] = \Config\Services::validation()->getErrors();
       }
       return $this->respond($response);
