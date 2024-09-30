@@ -5,7 +5,7 @@ import React, { useLayoutEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Bars } from "react-loader-spinner";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, useLocation } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import * as h from "~/src/Helpers";
 import { setInit, setModule } from "~/src/redux";
 import redux from "./redux";
@@ -27,7 +27,6 @@ const Routing = React.lazy(() => import("./Routing"));
 const App = () => {
    const { module } = useSelector((e) => e.redux);
    const dispatch = useDispatch();
-   const location = useLocation();
 
    // bool
    const [isLoading, setIsLoading] = useState(true);
@@ -63,7 +62,8 @@ const App = () => {
       keycloak
          .init({
             onLoad: "check-sso",
-            silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`,
+            // silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`,
+            checkLoginIframe: false,
          })
          .then((res) => {
             if (!res) {

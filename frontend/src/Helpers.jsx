@@ -93,7 +93,7 @@ export const post = async (url, form = [], config = {}) => {
       const formData = new FormData();
       Object.keys(form).forEach((data) => formData.append(data, form[data]));
 
-      const send = axios.post(`http://192.168.176.232:1003${url}`, formData, { ...config, signal: abortSignal(20_000) });
+      const send = axios.post(`${window.apiPath}${url}`, formData, { ...config, signal: abortSignal(20_000) });
       send.then((res) => {
          const { data } = res;
          if (typeof data.code !== "undefined" && parse("code", data) !== 200) {
@@ -266,7 +266,7 @@ export const get = async (url) => {
 
       await mutex.lock();
 
-      const send = axios.get(`http://192.168.176.232:1003${url}`, {
+      const send = axios.get(`${window.apiPath}${url}`, {
          signal: abortSignal(10_000),
       });
       send.then((res) => {

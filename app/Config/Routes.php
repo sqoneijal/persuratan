@@ -23,6 +23,17 @@ function akademik($routes): void
 {
    $routes->group('akademik', ['namespace' => 'App\Controllers\Akademik'], function ($routes) {
       akademikSuratAktifKuliah($routes);
+      akademikPenelitian($routes);
+   });
+}
+
+function akademikPenelitian($routes): void
+{
+   $routes->group('penelitian', function ($routes) {
+      $routes->get('cetak/(:num)', 'Penelitian::cetak/$1');
+
+      $routes->post('status', 'Penelitian::status');
+      $routes->post('submit', 'Penelitian::submit');
    });
 }
 

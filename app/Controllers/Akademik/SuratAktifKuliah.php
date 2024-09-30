@@ -195,7 +195,7 @@ class SuratAktifKuliah extends BaseController
 
          </html>');
          $dompdf->render();
-         $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
+         $dompdf->stream("aktif_kuliah.pdf", array("Attachment" => false));
       }
    }
 }

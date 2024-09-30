@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 
 const Home = React.lazy(() => import("./page/Home"));
 const Aktif = React.lazy(() => import("./page/aktif/Context"));
+const Penelitian = React.lazy(() => import("./page/penelitian/Context"));
+const Magang = React.lazy(() => import("./page/magang/Context"));
 
 const Routing = () => {
    const loader = (
@@ -24,6 +26,8 @@ const Routing = () => {
       <Routes>
          <Route path="/" loader={loader} element={<Home />} />
          <Route path="/aktif" loader={loader} element={<Aktif />} />
+         <Route path="/penelitian" loader={loader} element={<Penelitian />} />
+         <Route path="/magang" loader={loader} element={<Magang />} />
       </Routes>
    );
 };
