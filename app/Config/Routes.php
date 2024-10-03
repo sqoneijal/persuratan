@@ -2,6 +2,8 @@
 
 $routes = service('routes');
 
+$routes->get('absen', 'Absen::index');
+
 $routes->group('mahasiswa', function ($routes) {
    $routes->get('/', 'Mahasiswa::index');
    $routes->get('(:any)', 'Mahasiswa::detail/$1');
@@ -24,6 +26,17 @@ function akademik($routes): void
    $routes->group('akademik', ['namespace' => 'App\Controllers\Akademik'], function ($routes) {
       akademikSuratAktifKuliah($routes);
       akademikPenelitian($routes);
+      akademikMagang($routes);
+   });
+}
+
+function akademikMagang($routes): void
+{
+   $routes->group('magang', function ($routes) {
+      $routes->get('cetak/(:num)', 'Magang::cetak/$1');
+
+      $routes->post('getdata', 'Magang::getData');
+      $routes->post('submit', 'Magang::submit');
    });
 }
 

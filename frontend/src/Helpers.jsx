@@ -335,3 +335,20 @@ export const buttons = (label, isLoading = false, init = {}) => {
       </Button>
    );
 };
+
+export const semester = (n) => {
+   // Ambil tahun dari 4 digit pertama
+   const year = n.toString().substring(0, 4);
+   // Ambil semester dari digit terakhir
+   const semester = n.toString().slice(-1);
+
+   // Tentukan tipe semester
+   const semesterType = semester === "1" ? "Ganjil" : "Genap";
+
+   // Format tahun akademik
+   const nextYear = (parseInt(year) + 1).toString();
+   const academicYear = `${year}/${nextYear}`;
+
+   // Kembalikan hasil format
+   return `${academicYear} ${semesterType}`;
+};

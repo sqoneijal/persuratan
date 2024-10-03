@@ -15,7 +15,7 @@ const Header = () => {
          </div>
          <Container>
             <div className="page-header-content cl-white">
-               <h2 className="title">Surat Penelitian</h2>
+               <h2 className="title">Surat Magang</h2>
             </div>
          </Container>
       </section>

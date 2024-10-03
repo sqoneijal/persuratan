@@ -1,32 +1,31 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as h from "~/src/Helpers";
-import { setModule } from "~/src/redux";
 
-const FormsPengajuan = ({ setApakahSudahMengajukan }) => {
-   const { module, init } = useSelector((e) => e.redux);
+const Pengajuan = () => {
+   const { module } = useSelector((e) => e.redux);
    const { periode, biodata } = module;
-   const dispatch = useDispatch();
 
    // bool
    const [isSubmit, setIsSubmit] = useState(false);
 
-   // bool
+   // object
    const [input, setInput] = useState({});
    const [errors, setErrors] = useState({});
 
    const submit = (e) => {
       e.preventDefault();
       const formData = {
-         nim: h.parse("preferred_username", init),
+         nim: h.parse("nim", biodata),
          periode: h.parse("nama_singkat", periode),
+         nama: h.parse("nama", biodata),
          id_prodi: h.parse("id_program_studi", biodata),
       };
       Object.keys(input).forEach((key) => (formData[key] = input[key]));
 
       setIsSubmit(true);
-      const fetch = h.post(`/akademik/penelitian/submit`, formData);
+      const fetch = h.post(`/akademik/magang/submit`, formData);
       fetch.then((res) => {
          if (typeof res === "undefined") return;
 
@@ -41,8 +40,7 @@ const FormsPengajuan = ({ setApakahSudahMengajukan }) => {
 
          if (!data.status) return;
 
-         dispatch(setModule({ ...module, detailContent: data.data }));
-         setApakahSudahMengajukan(true);
+         window.location.reload();
       });
       fetch.finally(() => {
          setIsSubmit(false);
@@ -55,24 +53,44 @@ const FormsPengajuan = ({ setApakahSudahMengajukan }) => {
             <Row className="justify-content-center justify-content-lg-between">
                <Col lg={12}>
                   <div className="contact-wrapper">
-                     <h4 className="title text-center mb-30">Ajukan permohonan surat penelitian</h4>
+                     <h4 className="title text-center mb-30">Ajukan permohonan surat magang</h4>
                      <Form onSubmit={isSubmit ? null : submit} className="contact-form">
                         {h.form_text(
-                           `Lokasi Tujuan Surat Penelitian`,
-                           `surat_kepada`,
+                           `Lokasi Magang`,
+                           `lokasi_magang`,
                            {
                               onChange: (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })),
-                              value: h.parse(`surat_kepada`, input),
+                              value: h.parse(`lokasi_magang`, input),
                            },
                            true,
                            errors
                         )}
                         {h.form_text(
-                           `Judul Penelitian`,
-                           `judul_penelitian`,
+                           `Tujuan Surat`,
+                           `tujuan_surat`,
                            {
                               onChange: (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })),
-                              value: h.parse(`judul_penelitian`, input),
+                              value: h.parse(`tujuan_surat`, input),
+                           },
+                           true,
+                           errors
+                        )}
+                        {h.form_text(
+                           `Nomor HP Yang Aktif`,
+                           `no_kontak`,
+                           {
+                              onChange: (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })),
+                              value: h.parse(`no_kontak`, input),
+                           },
+                           true,
+                           errors
+                        )}
+                        {h.form_text(
+                           `Alamat Tinggal Sekarang`,
+                           `alamat`,
+                           {
+                              onChange: (e) => setInput((prev) => ({ ...prev, [e.target.name]: e.target.value })),
+                              value: h.parse(`alamat`, input),
                            },
                            true,
                            errors
@@ -88,4 +106,4 @@ const FormsPengajuan = ({ setApakahSudahMengajukan }) => {
       </section>
    );
 };
-export default FormsPengajuan;
+export default Pengajuan;
