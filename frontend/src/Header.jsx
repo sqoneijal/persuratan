@@ -12,7 +12,7 @@ const Header = () => {
       { label: "Aktif", pathname: "/aktif" },
       // { label: "Cuti", pathname: "/cuti" },
       // { label: "Masih Kuliah", pathname: "/masihkuliah" },
-      // { label: "Tidak Menerima Beasiswa", pathname: "/tidakmenerimabeasiswa" },
+      { label: "Tidak Menerima Beasiswa", pathname: "/tidakmenerimabeasiswa" },
       { label: "Penelitian", pathname: "/penelitian" },
       { label: "Magang", pathname: "/magang" },
    ];

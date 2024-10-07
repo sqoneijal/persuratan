@@ -27,6 +27,14 @@ function akademik($routes): void
       akademikSuratAktifKuliah($routes);
       akademikPenelitian($routes);
       akademikMagang($routes);
+      akademikTidakMenerimaBeasiswa($routes);
+   });
+}
+
+function akademikTidakMenerimaBeasiswa($routes): void
+{
+   $routes->group('tidakmenerimabeasiswa', function ($routes) {
+      $routes->post('getdata', 'TidakMenerimaBeasiswa::getData');
    });
 }
 
