@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import * as h from "~/src/Helpers";
 
-const FormsPengajuan = () => {
+const Review = () => {
    const { module } = useSelector((e) => e.redux);
    const { periode, biodata } = module;
 
@@ -52,14 +52,7 @@ const FormsPengajuan = () => {
                               <h3 className="title">Pengajuan</h3>
                            </div>
                            <div className="post-content">
-                              <p>Apakah anda ingin mengajukan permohonan pernyataan tidak menerima beasiswa?</p>
-                           </div>
-                        </div>
-                        <div className="tags-area">
-                           <div className="tags">
-                              {h.buttons(`Ajukan Permohonan`, isSubmit, {
-                                 onClick: isSubmit ? null : submit,
-                              })}
+                              <p>Permohonan anda sedang di proses oleh akademk fakultas. Terima kasih!!!</p>
                            </div>
                         </div>
                      </div>
@@ -70,4 +63,4 @@ const FormsPengajuan = () => {
       </section>
    );
 };
-export default FormsPengajuan;
+export default Review;

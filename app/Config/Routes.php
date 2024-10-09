@@ -34,7 +34,10 @@ function akademik($routes): void
 function akademikTidakMenerimaBeasiswa($routes): void
 {
    $routes->group('tidakmenerimabeasiswa', function ($routes) {
+      $routes->get('cetak/(:num)', 'TidakMenerimaBeasiswa::cetak/$1');
+
       $routes->post('getdata', 'TidakMenerimaBeasiswa::getData');
+      $routes->post('submit', 'TidakMenerimaBeasiswa::submit');
    });
 }
 

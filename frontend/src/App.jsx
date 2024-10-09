@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import axios from "axios";
 import Keycloak from "keycloak-js";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { Bars } from "react-loader-spinner";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -28,28 +28,20 @@ const App = () => {
    const { module } = useSelector((e) => e.redux);
    const dispatch = useDispatch();
 
-   // bool
-   const [isLoading, setIsLoading] = useState(true);
-
    const initPage = (nim) => {
-      axios
-         .all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/${nim}`)])
-         .then(
-            axios.spread((...res) => {
-               const [periode, biodata] = res;
-               if (h.objLength(periode.data) && h.objLength(biodata.data)) {
-                  if (periode.data.status && biodata.data.status) {
-                     dispatch(setModule({ ...module, periode: periode.data.data, biodata: biodata.data.data }));
-                  } else {
-                     h.notification(false, "Gagal mengambil data dari sevima!");
-                     return;
-                  }
+      axios.all([h.get(`/sevima/periodeaktif`), h.get(`/sevima/biodata/${nim}`)]).then(
+         axios.spread((...res) => {
+            const [periode, biodata] = res;
+            if (h.objLength(periode.data) && h.objLength(biodata.data)) {
+               if (periode.data.status && biodata.data.status) {
+                  dispatch(setModule({ ...module, periode: periode.data.data, biodata: biodata.data.data }));
+               } else {
+                  h.notification(false, "Gagal mengambil data dari sevima!");
+                  return;
                }
-            })
-         )
-         .finally(() => {
-            setIsLoading(false);
-         });
+            }
+         })
+      );
    };
 
    useLayoutEffect(() => {
@@ -59,20 +51,14 @@ const App = () => {
          clientId: "mael",
       });
 
-      keycloak
-         .init({
-            onLoad: "check-sso",
-            // silentCheckSsoRedirectUri: `${location.origin}/silent-check-sso.html`,
-            checkLoginIframe: false,
-         })
-         .then((res) => {
-            if (!res) {
-               keycloak.login();
-            }
-         });
+      keycloak.init({
+         onLoad: "check-sso",
+         checkLoginIframe: false,
+      });
 
       keycloak.onAuthSuccess = () => {
          dispatch(setInit(keycloak.idTokenParsed));
+         dispatch(setModule({ ...module, isLogin: true }));
          initPage(keycloak.idTokenParsed.preferred_username);
       };
       return () => {};
@@ -92,9 +78,7 @@ const App = () => {
       />
    );
 
-   return isLoading ? (
-      loader
-   ) : (
+   return (
       <React.Suspense fallback={loader}>
          <Header />
          <Routing />

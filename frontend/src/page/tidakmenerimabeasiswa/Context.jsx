@@ -1,10 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
 import { Bars } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
+import Switch, { Case, Default } from "react-switch-case";
 import * as h from "~/src/Helpers";
 import { setModule } from "~/src/redux";
 
+const Header = React.lazy(() => import("./Header"));
 const FormsPengajuan = React.lazy(() => import("./FormsPengajuan"));
+const Review = React.lazy(() => import("./Review"));
+const Diterima = React.lazy(() => import("./Diterima"));
 
 const Context = () => {
    const { module } = useSelector((e) => e.redux);
@@ -54,6 +58,27 @@ const Context = () => {
       />
    );
 
-   return isLoading ? loader : <React.Suspense fallback={loader}>{h.objLength(detailContent) ? "" : <FormsPengajuan />}</React.Suspense>;
+   return isLoading ? (
+      loader
+   ) : (
+      <React.Suspense fallback={loader}>
+         <Header />
+         {h.objLength(detailContent) ? (
+            <Switch condition={detailContent.is_approved}>
+               <Case value="-">
+                  <Review />
+               </Case>
+               <Case value="t">
+                  <Diterima />
+               </Case>
+               <Default>
+                  <FormsPengajuan />
+               </Default>
+            </Switch>
+         ) : (
+            <FormsPengajuan />
+         )}
+      </React.Suspense>
+   );
 };
 export default Context;

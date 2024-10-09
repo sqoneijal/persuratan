@@ -28,3 +28,18 @@ function tanggal_indo(string $tanggal): string
       return '';
    }
 }
+
+function periode($tahun, $semester)
+{
+   // Tentukan tahun ajaran berikutnya
+   $tahun_akhir = $tahun + 1;
+
+   // Tentukan apakah semester ganjil atau genap
+   if ($semester == 1) {
+      return "$tahun/$tahun_akhir Ganjil";
+   } elseif ($semester == 2) {
+      return "$tahun/$tahun_akhir Genap";
+   } else {
+      return "Semester tidak valid.";
+   }
+}

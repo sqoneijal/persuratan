@@ -1,11 +1,13 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import logo from "~/assets/logo_uin.svg";
 import * as h from "~/src/Helpers";
 import { Each } from "./Each";
 
 const Header = () => {
+   const { init } = useSelector((e) => e.redux);
    const location = useLocation();
 
    const navigation = [
@@ -26,18 +28,20 @@ const Header = () => {
                      <img src={logo} alt="logo" />
                   </Link>
                </div>
-               <ul className="menu">
-                  <Each
-                     of={navigation}
-                     render={(row) => (
-                        <li className="active-parent">
-                           <Link to={row.pathname} className={h.parse("pathname", row) === h.parse("pathname", location) ? "active" : ""}>
-                              {h.parse("label", row)}
-                           </Link>
-                        </li>
-                     )}
-                  />
-               </ul>
+               {h.objLength(init) && (
+                  <ul className="menu">
+                     <Each
+                        of={navigation}
+                        render={(row) => (
+                           <li className="active-parent">
+                              <Link to={row.pathname} className={h.parse("pathname", row) === h.parse("pathname", location) ? "active" : ""}>
+                                 {h.parse("label", row)}
+                              </Link>
+                           </li>
+                        )}
+                     />
+                  </ul>
+               )}
                <div className="header-bar d-lg-none">
                   <span />
                   <span />
