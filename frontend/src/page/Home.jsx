@@ -74,8 +74,8 @@ const Home = () => {
                                     <p>
                                        Jika anda belum pernah melakukan login dengan akun SSO UINAR, untuk default username dan password adalah{" "}
                                        <span className="text-danger fw-bold fs-3">NIM</span> dan tanggal lahir anda{" "}
-                                       <span className="text-danger fw-bold fs-3">YYYYMMDD</span> (contoh penulisan tanggal lahir :{" "}
-                                       {moment().format("YYYYMMDD")})
+                                       <span className="text-danger fw-bold fs-3">DDMMYYYY</span> (contoh penulisan tanggal lahir :{" "}
+                                       {moment().format("DDMMYYYY")})
                                     </p>
                                     {h.objLength(init) ? (
                                        <a

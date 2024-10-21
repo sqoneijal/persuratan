@@ -10,6 +10,7 @@ import * as h from "~/src/Helpers";
 import { setInit, setModule } from "~/src/redux";
 import redux from "./redux";
 
+import "toastr/build/toastr.css";
 import "~/assets/css/all.min.css";
 import "~/assets/css/animate.css";
 import "~/assets/css/bootstrap.min.css";
@@ -19,7 +20,6 @@ import "~/assets/css/magnific-popup.css";
 import "~/assets/css/main.css";
 import "~/assets/css/nice-select.css";
 import "~/assets/css/owl.min.css";
-import "~/node_modules/toastr/build/toastr.css";
 
 const Header = React.lazy(() => import("./Header"));
 const Routing = React.lazy(() => import("./Routing"));
