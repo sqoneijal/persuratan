@@ -12,24 +12,12 @@
    "require": {
       "php": "^7.4 || ^8.0",
       "chillerlan/php-qrcode": "^5.0",
-      "dompdf/dompdf": "^3.0"
-   },
-   "autoload": {
-      "exclude-from-classmap": [
-         "**/Database/Migrations/**"
-      ]
-   },
-   "autoload-dev": {
-      "psr-4": {
-         "Tests\\Support\\": "tests/_support"
-      }
+      "dompdf/dompdf": "^3.0",
+      "firebase/php-jwt": "^6.10"
    },
    "config": {
       "optimize-autoloader": true,
       "preferred-install": "dist",
       "sort-packages": true
-   },
-   "scripts": {
-      "test": "phpunit"
    }
 }

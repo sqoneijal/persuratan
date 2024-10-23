@@ -11,6 +11,8 @@ const Header = () => {
    const location = useLocation();
 
    const navigation = [
+      { label: "KHS", pathname: "/khs" },
+      { label: "Transkrip Akhir", pathname: "/transkripakhir" },
       { label: "Aktif", pathname: "/aktif" },
       // { label: "Cuti", pathname: "/cuti" },
       // { label: "Masih Kuliah", pathname: "/masihkuliah" },

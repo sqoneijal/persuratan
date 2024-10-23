@@ -7,6 +7,40 @@ use App\Controllers\BaseController;
 class Sevima extends BaseController
 {
 
+   public function getKhs(): object
+   {
+      try {
+         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/khs');
+         $body = json_decode($req->getBody(), true);
+
+         $periode = [];
+         $attributes = [];
+         foreach ($body['data'] as $row) {
+            $att = $row['attributes'];
+
+            $periode[] = $att['id_periode'];
+            $attributes[] = $att;
+         }
+
+         $daftar_matkul = [];
+         foreach ($attributes as $row) {
+            $daftar_matkul[$row['id_periode']][] = $row;
+         }
+
+         $uniqueArray = array_values(array_unique($periode));
+         sort($uniqueArray);
+
+         $content = [
+            'periode' => $uniqueArray,
+            'daftar_matkul' => $daftar_matkul
+         ];
+
+         return $this->respond(['status' => true, 'data' => $content]);
+      } catch (\Exception $e) {
+         return ['status' => false, 'message' => $e->getMessage()];
+      }
+   }
+
    public function getDetailBiodata(string $slug): object
    {
       try {

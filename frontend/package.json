@@ -4,6 +4,7 @@
       "axios": "^1.7.7",
       "express": "^4.21.0",
       "https": "^1.0.0",
+      "jwt-encode": "^1.0.1",
       "keycloak-js": "^25.0.5",
       "lozad": "^1.16.0",
       "moment": "^2.30.1",
@@ -21,7 +22,7 @@
       "esbuild": "0.23.1"
    },
    "scripts": {
-      "dev": "cp index-sample.html index.html && esbuild --define:process.env.NODE_ENV=\\\"development\\\" ./src/App.jsx --bundle --watch --alias:~=./ --outdir=./bundle --loader:.svg=dataurl --loader:.webp=dataurl --loader:.eot=copy --loader:.png=dataurl --loader:.jpg=copy --loader:.woff=copy --loader:.woff2=copy --loader:.ttf=copy --loader:.webp=copy --sourcemap --log-limit=0",
+      "dev": "pre-dev.sh && esbuild --define:process.env.NODE_ENV=\\\"development\\\" ./src/App.jsx --bundle --watch --alias:~=./ --outdir=./bundle --loader:.svg=dataurl --loader:.webp=dataurl --loader:.eot=copy --loader:.png=dataurl --loader:.jpg=copy --loader:.woff=copy --loader:.woff2=copy --loader:.ttf=copy --loader:.webp=copy --sourcemap --log-limit=0",
       "build": "pre-build.sh && esbuild.config.js && build.sh"
    }
 }

@@ -17,6 +17,7 @@ function sevima($routes): void
       $routes->get('biodata/(:any)', 'Sevima::getDetailBiodata/$1');
 
       $routes->post('statuspembayaranspp', 'Sevima::getStatusPembayaranSPP');
+      $routes->post('khs', 'Sevima::getKhs');
    });
 }
 
@@ -28,6 +29,14 @@ function akademik($routes): void
       akademikPenelitian($routes);
       akademikMagang($routes);
       akademikTidakMenerimaBeasiswa($routes);
+      akademikKHS($routes);
+   });
+}
+
+function akademikKHS($routes): void
+{
+   $routes->group('khs', function ($routes) {
+      $routes->get('cetak/(:any)', 'Khs::cetak/$1');
    });
 }
 
