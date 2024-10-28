@@ -11,8 +11,8 @@ const Review = React.lazy(() => import("./Review"));
 const Diterima = React.lazy(() => import("./Diterima"));
 
 const Context = () => {
-   const { init, module } = useSelector((e) => e.redux);
-   const { periode, detailContent } = module;
+   const { module } = useSelector((e) => e.redux);
+   const { periode, detailContent, biodata } = module;
    const dispatch = useDispatch();
 
    // bool
@@ -40,9 +40,9 @@ const Context = () => {
    };
 
    useLayoutEffect(() => {
-      getData(h.parse("preferred_username", init), h.parse("nama_singkat", periode));
+      if (h.objLength(biodata) && h.objLength(periode)) getData(h.parse("nim", biodata), h.parse("nama_singkat", periode));
       return () => {};
-   }, [init, periode]);
+   }, [periode, biodata]);
 
    const loader = (
       <Bars

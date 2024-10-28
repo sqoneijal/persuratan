@@ -68,8 +68,7 @@ class Penelitian extends BaseController
 
       if ($sevima['status']) {
          $sevima_prodi = $this->getDetailProgramStudi($sevima['data']['id_program_studi']);
-         $sevima_jurusan = $this->getDetailJurusan($sevima_prodi['data']['id_unit_parent']);
-         $sevima_fakultas = $this->getDetailFakultas($sevima_jurusan['data']['id_unit_parent']);
+         $sevima_fakultas = $this->getDetailFakultas($sevima_prodi['data']['id_fakultas']);
 
          $logo_uin = ROOTPATH . 'public/logo_uin.png';
          $type = pathinfo($logo_uin, PATHINFO_EXTENSION);

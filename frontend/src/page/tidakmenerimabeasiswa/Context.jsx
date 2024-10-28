@@ -40,7 +40,7 @@ const Context = () => {
    };
 
    useLayoutEffect(() => {
-      getData(h.parse("nim", biodata), h.parse("nama_singkat", periode));
+      if (h.objLength(biodata)) getData(h.parse("nim", biodata), h.parse("nama_singkat", periode));
       return () => {};
    }, [biodata, periode]);
 

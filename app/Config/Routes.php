@@ -18,6 +18,7 @@ function sevima($routes): void
 
       $routes->post('statuspembayaranspp', 'Sevima::getStatusPembayaranSPP');
       $routes->post('khs', 'Sevima::getKhs');
+      $routes->post('transkrip', 'Sevima::transkripAkhir');
    });
 }
 
@@ -30,6 +31,14 @@ function akademik($routes): void
       akademikMagang($routes);
       akademikTidakMenerimaBeasiswa($routes);
       akademikKHS($routes);
+      akademikTranskrip($routes);
+   });
+}
+
+function akademikTranskrip($routes): void
+{
+   $routes->group('transkrip', function ($routes) {
+      $routes->get('cetak/(:any)', 'Transkrip::cetak/$1');
    });
 }
 

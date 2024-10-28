@@ -7,6 +7,23 @@ use App\Controllers\BaseController;
 class Sevima extends BaseController
 {
 
+   public function transkripAkhir(): object
+   {
+      try {
+         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/transkrip');
+         $body = json_decode($req->getBody(), true);
+
+         $attributes = [];
+         foreach ($body['data'] as $row) {
+            $attributes[] = $row['attributes'];
+         }
+
+         return $this->respond(['status' => true, 'data' => $attributes]);
+      } catch (\Exception $e) {
+         return ['status' => false, 'message' => $e->getMessage()];
+      }
+   }
+
    public function getKhs(): object
    {
       try {

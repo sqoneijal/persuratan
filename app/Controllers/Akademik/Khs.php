@@ -7,7 +7,6 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Dompdf\Dompdf;
 use chillerlan\QRCode\QRCode;
-use Kreait\Firebase\Factory;
 
 class Khs extends BaseController
 {
@@ -194,7 +193,7 @@ class Khs extends BaseController
    {
 
       return '<tr style="font-size: 12px;">
-            <td style="font-weight: bold; text-align: right; border: 1px dotted #000; border-left: none;" colspan="3">JUMLAH</td>
+            <td style="font-weight: bold; text-align: right; border: 1px dotted #000; border-left: none; padding-right: 10px;" colspan="3">JUMLAH</td>
             <td style="text-align: center; border: 1px dotted #000;">' . $this->hitungTotalSKSDiambil($content) . '</td>
             <td colspan="2" style="border: 1px dotted #000;"></td>
             <td style="text-align: center; border: 1px dotted #000; border-right: none;">' . $this->hitungTotalBobot($content) . '</td>
@@ -203,7 +202,7 @@ class Khs extends BaseController
             <td colspan="3" style="border: 1px dotted #000; border-left: none;">
                <table style="width: 100%; margin-top: 20px; margin-bottom: 20px;">
                   <tr>
-                     <td style="width: 40%;">Indeks Prestasi (IP)</td>
+                     <td style="width: 50%;">Indeks Prestasi (IP)</td>
                      <td style="width: 2%;">:</td>
                      <td style="font-weight: bold;">' . $this->hitungIPS($content) . '</td>
                   </tr>

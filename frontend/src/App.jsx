@@ -61,6 +61,17 @@ const App = () => {
          dispatch(setModule({ ...module, isLogin: true }));
          initPage(keycloak.idTokenParsed.preferred_username);
       };
+
+      window.addEventListener("scroll", () => {
+         const scrollPosition = window.scrollY;
+         const header = document.querySelector("#root > header");
+
+         if (scrollPosition >= 100) {
+            header.classList.add("active");
+         } else {
+            header.classList.remove("active");
+         }
+      });
       return () => {};
    }, []);
 

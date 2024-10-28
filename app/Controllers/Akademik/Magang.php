@@ -68,8 +68,7 @@ class Magang extends BaseController
 
       if ($sevima['status']) {
          $sevima_prodi = $this->getDetailProgramStudi($sevima['data']['id_program_studi']);
-         $sevima_jurusan = $this->getDetailJurusan($sevima_prodi['data']['id_unit_parent']);
-         $sevima_fakultas = $this->getDetailFakultas($sevima_jurusan['data']['id_unit_parent']);
+         $sevima_fakultas = $this->getDetailFakultas($sevima_prodi['data']['id_fakultas']);
 
          $logo_uin = ROOTPATH . 'public/logo_uin.png';
          $type = pathinfo($logo_uin, PATHINFO_EXTENSION);
@@ -145,7 +144,7 @@ class Magang extends BaseController
                            <td>Assalamualaikum Warahmatullah Wabarakatuh</td>
                         </tr>
                         <tr>
-                           <td style="text-align: justify;">Menindaklanjuti permohonan izin magang dari mahasiswa, Program Studi ' . ucwords($sevima_prodi['data']['nama']) . ' Islam UIN Ar-Raniry Banda Aceh :</td>
+                           <td style="text-align: justify;">Menindaklanjuti permohonan izin magang dari mahasiswa, Program Studi ' . ucwords($sevima_prodi['data']['nama_program_studi']) . ' Islam UIN Ar-Raniry Banda Aceh :</td>
                         </tr>
                      </tbody>
                   </table>
@@ -197,7 +196,6 @@ class Magang extends BaseController
                               An. Dekan<br/>
                               Wakil Dekan Bidang Akademik dan Kelembagaan
                               <img src="' . $qrCode . '" alt="qrcode ttd dekan" style="width: 100px; height: 100px;" /><br />
-                           ' . $sevima_fakultas['data']['nama_wakil_dekan_1'] . '
                               ' . $sevima_fakultas['data']['nama_wakil_dekan_1'] . '<br/>
                               NIP. ' . $sevima_fakultas['data']['nip_wakil_dekan_1'] . '
                            </td>

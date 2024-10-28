@@ -9,8 +9,8 @@ const Header = React.lazy(() => import("./Header"));
 const SudahMengajukan = React.lazy(() => import("./SudahMengajukan"));
 
 const Context = () => {
-   const { module, init } = useSelector((e) => e.redux);
-   const { periode } = module;
+   const { module } = useSelector((e) => e.redux);
+   const { periode, biodata } = module;
    const dispatch = useDispatch();
 
    // bool
@@ -42,9 +42,9 @@ const Context = () => {
    };
 
    useLayoutEffect(() => {
-      getStatus(h.parse("preferred_username", init), h.parse("nama_singkat", periode));
+      if (h.objLength(biodata) && h.objLength(periode)) getStatus(h.parse("nim", biodata), h.parse("nama_singkat", periode));
       return () => {};
-   }, [init, periode]);
+   }, [biodata, periode]);
 
    const loader = (
       <Bars
