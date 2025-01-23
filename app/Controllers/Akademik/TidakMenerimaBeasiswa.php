@@ -165,8 +165,8 @@ class TidakMenerimaBeasiswa extends BaseController
                               An. Dekan<br/>
                               Wakil Dekan Bidang Akademik dan Kelembagaan
                               <img src="' . $qrCode . '" alt="qrcode ttd dekan" style="width: 100px; height: 100px;" /><br />
-                              ' . $sevima_fakultas['data']['nama_wakil_dekan_1'] . '<br/>
-                              NIP. ' . $sevima_fakultas['data']['nip_wakil_dekan_1'] . '
+                              ' . $sevima_fakultas['data']['nama_wakil_dekan_3'] . '<br/>
+                              NIP. ' . $sevima_fakultas['data']['nip_wakil_dekan_3'] . '
                            </td>
                         </tr>
                      </tbody>

@@ -78,6 +78,21 @@ class Penelitian extends BaseController
          $linkBerkas = 'https://berkas.ar-raniry.ac.id/penelitian/' . $row['public_key'];
          $qrCode = (new QRCode)->render($linkBerkas);
 
+         $jenis_dokumen = '';
+         $an = 'An. Dekan';
+         $wakil = 'Wakil Dekan Bidang Akademik dan Kelembagaan';
+         if ($sevima['data']['id_jenjang'] === 'S1') {
+            $jenis_dokumen = 'Skripsi';
+         } elseif ($sevima['data']['id_jenjang'] === 'S2') {
+            $jenis_dokumen = 'Tesis';
+            $an = 'An. Direktur';
+            $wakil = 'Wakil Direktur';
+         } elseif ($sevima['data']['id_jenjang'] === 'S3') {
+            $jenis_dokumen = 'Disertasi';
+            $an = 'An. Direktur';
+            $wakil = 'Wakil Direktur';
+         }
+
          $dompdf = new Dompdf();
          $dompdf->setPaper('A4', 'potrait');
          $dompdf->loadHtml('<!DOCTYPE html>
@@ -163,7 +178,7 @@ class Penelitian extends BaseController
                <table style="width: 100%;">
                   <tbody>
                      <tr>
-                        <td style="text-align: justify;">Saudara yang tersebut namanya diatas benar mahasiswa ' . ucwords($sevima_fakultas['data']['nama']) . ' bermaksud melakukan penelitian ilmiah di lembaga yang Bapak/Ibu pimpin dalam rangka penulisan Skripsi dengan judul <strong style="font-style: italic;">' . strtoupper($row['judul_penelitian']) . '</strong></td>
+                        <td style="text-align: justify;">Saudara yang tersebut namanya diatas benar mahasiswa ' . ucwords($sevima_fakultas['data']['nama']) . ' bermaksud melakukan penelitian ilmiah di lembaga yang Bapak/Ibu pimpin dalam rangka penulisan ' . $jenis_dokumen . ' dengan judul <strong style="font-style: italic;">' . strtoupper($row['judul_penelitian']) . '</strong></td>
                      </tr>
                   </tbody>
                </table>
@@ -173,10 +188,9 @@ class Penelitian extends BaseController
                         <td style="vertical-align: bottom;">Berlaku sampai : ' . tanggal_indo($row['berlaku_sampai']) . '</td>
                         <td style="width: 50%;">
                            Banda Aceh, ' . tanggal_indo(date('Y-m-d', strtotime($row['tanggal_approve']))) . '<br/>
-                           An. Dekan<br/>
-                           Wakil Dekan Bidang Akademik dan Kelembagaan
+                           ' . $an . '<br/>
+                           ' . $wakil . '<br/>
                            <img src="' . $qrCode . '" alt="qrcode ttd dekan" style="width: 100px; height: 100px;" /><br />
-                        ' . $sevima_fakultas['data']['nama_wakil_dekan_1'] . '
                            ' . $sevima_fakultas['data']['nama_wakil_dekan_1'] . '<br/>
                            NIP. ' . $sevima_fakultas['data']['nip_wakil_dekan_1'] . '
                         </td>

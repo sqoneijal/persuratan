@@ -35,10 +35,12 @@ const Lists = () => {
       if (detailNavActive && daftar_matkul[detailNavActive]) {
          let total = 0;
          let bobot = 0;
-         daftar_matkul[detailNavActive].forEach((row) => {
-            total += h.toInt(row.sks);
-            bobot += h.toInt(row.sks) * h.toInt(row.nilai_angka);
-         });
+         daftar_matkul[detailNavActive]
+            .filter((e) => e.is_nilai_akhir === "1")
+            .forEach((row) => {
+               total += h.toInt(row.sks);
+               bobot += h.toInt(row.sks) * h.toInt(row.nilai_angka);
+            });
          setTotal_sks(total);
          setTotal_bobot(bobot);
       }
@@ -99,7 +101,7 @@ const Lists = () => {
                                              </thead>
                                              <tbody>
                                                 <Each
-                                                   of={daftar_matkul[row]}
+                                                   of={daftar_matkul[row].filter((e) => e.is_nilai_akhir === "1")}
                                                    render={(row, index) => (
                                                       <tr>
                                                          <td className="text-center">{index + 1}</td>

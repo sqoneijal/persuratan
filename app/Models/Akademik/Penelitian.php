@@ -4,13 +4,44 @@ namespace App\Models\Akademik;
 
 use CodeIgniter\Database\RawSql;
 use CodeIgniter\Model;
+use App\Libraries\Sevima;
 
 class Penelitian extends Model
 {
 
+   private function checkBiodata(string $nim): bool
+   {
+      $table = $this->db->table('tb_mahasiswa');
+      $table->where('nim', $nim);
+
+      return $table->countAllResults() > 0 ? true : false;
+   }
+
+   private function generateBiodataMahasiswa(string $nim): void
+   {
+      $sevima = new Sevima();
+      $data = $sevima->getBiodataMahasiswa($nim);
+
+      $checkBiodata = $this->checkBiodata($nim);
+      if (!$checkBiodata) {
+         $table = $this->db->table('tb_mahasiswa');
+         $table->insert([
+            'nim' => $data['nim'],
+            'nama' => $data['nama'],
+            'tmp_lahir' => $data['tempat_lahir'],
+            'tgl_lahir' => $data['tanggal_lahir'],
+            'jekel' => $data['jenis_kelamin'],
+            'id_prodi' => $data['id_program_studi'],
+            'alamat' => $data['alamat']
+         ]);
+      }
+   }
+
    public function submit(array $post): array
    {
       try {
+         $this->generateBiodataMahasiswa($post['nim']);
+
          $fields = ['nim', 'surat_kepada', 'judul_penelitian', 'id_prodi'];
          foreach ($fields as $field) {
             if (@$post[$field]) {
@@ -39,6 +70,7 @@ class Penelitian extends Model
       try {
          $table = $this->db->table('tb_surat_pernyataan');
          $table->where('nim', $post['nim']);
+         $table->where('jenis_surat', 'penelitian');
          $table->where('concat(tahun_ajaran, semester)', $post['periode']);
 
          $get = $table->get();

@@ -43,4 +43,12 @@ class Sevima
          return ['status' => false, 'message' => 'Tidak ada data yang ditemukan.'];
       }
    }
+
+   public function getBiodataMahasiswa(string $nim): array
+   {
+      $req = $this->curl->request('GET', 'mahasiswa/' . $nim);
+      $body = json_decode($req->getBody(), true);
+
+      return $body['attributes'];
+   }
 }

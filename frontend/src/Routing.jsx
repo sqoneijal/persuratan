@@ -9,6 +9,7 @@ const Magang = React.lazy(() => import("./page/magang/Context"));
 const TidakMenerimaBeasiswa = React.lazy(() => import("./page/tidakmenerimabeasiswa/Context"));
 const Khs = React.lazy(() => import("./page/khs/Context"));
 const TranskripAkhir = React.lazy(() => import("./page/transkripakhir/Context"));
+const SertifikatKPM = React.lazy(() => import("./page/sertifikatkpm/Context"));
 
 const Routing = () => {
    const loader = (
@@ -34,6 +35,7 @@ const Routing = () => {
          <Route path="/tidakmenerimabeasiswa" loader={loader} element={<TidakMenerimaBeasiswa />} />
          <Route path="/khs" loader={loader} element={<Khs />} />
          <Route path="/transkripakhir" loader={loader} element={<TranskripAkhir />} />
+         <Route path="/sertifikatkpm" loader={loader} element={<SertifikatKPM />} />
       </Routes>
    );
 };

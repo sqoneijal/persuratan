@@ -20,6 +20,7 @@ const Header = () => {
       { label: "Tidak Menerima Beasiswa", pathname: "/tidakmenerimabeasiswa" },
       { label: "Penelitian", pathname: "/penelitian" },
       { label: "Magang", pathname: "/magang" },
+      { label: "Sertifikat KPM", pathname: "/sertifikatkpm" },
    ];
 
    const handleClickMobileNav = (e) => {

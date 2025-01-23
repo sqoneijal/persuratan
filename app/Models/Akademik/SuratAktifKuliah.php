@@ -4,13 +4,44 @@ namespace App\Models\Akademik;
 
 use App\Models\Common;
 use CodeIgniter\Database\RawSql;
+use App\Libraries\Sevima;
 
 class SuratAktifKuliah extends Common
 {
 
+   private function generateBiodataMahasiswa(string $nim): void
+   {
+      $sevima = new Sevima();
+      $data = $sevima->getBiodataMahasiswa($nim);
+
+      $checkBiodata = $this->checkBiodata($nim);
+      if (!$checkBiodata) {
+         $table = $this->db->table('tb_mahasiswa');
+         $table->insert([
+            'nim' => $data['nim'],
+            'nama' => $data['nama'],
+            'tmp_lahir' => $data['tempat_lahir'],
+            'tgl_lahir' => $data['tanggal_lahir'],
+            'jekel' => $data['jenis_kelamin'],
+            'id_prodi' => $data['id_program_studi'],
+            'alamat' => $data['alamat']
+         ]);
+      }
+   }
+
+   private function checkBiodata(string $nim): bool
+   {
+      $table = $this->db->table('tb_mahasiswa');
+      $table->where('nim', $nim);
+
+      return $table->countAllResults() > 0 ? true : false;
+   }
+
    public function pengajuan(array $post): array
    {
       try {
+         $this->generateBiodataMahasiswa($post['nim']);
+
          $tahun_ajaran = substr($post['periode'], 0, 4);
          $id_semester = substr($post['periode'], 4, 1);
 

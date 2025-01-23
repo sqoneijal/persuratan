@@ -27,7 +27,7 @@ class Sevima extends BaseController
    public function getKhs(): object
    {
       try {
-         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/khs');
+         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/khs?f-is_nilai_akhir=1');
          $body = json_decode($req->getBody(), true);
 
          $periode = [];
@@ -92,12 +92,12 @@ class Sevima extends BaseController
    public function getStatusPembayaranSPP(): object
    {
       try {
-         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/invoice');
+         $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/perwalian?f-is_krs_terisi=1');
          $body = json_decode($req->getBody(), true);
 
          $status = false;
          foreach ($body['data'] as $row) {
-            if ($row['attributes']['is_lunas'] === '1' && $row['attributes']['id_periode'] === $this->post['periode']) {
+            if ($row['attributes']['id_periode'] === $this->post['periode']) {
                $status = true;
             }
          }

@@ -242,7 +242,7 @@ class Khs extends BaseController
       try {
          $data_jwt = $this->decodeJwt($jwt);
 
-         $req = $this->curl->request('GET', 'mahasiswa/' . $data_jwt['nim'] . '/khs');
+         $req = $this->curl->request('GET', 'mahasiswa/' . $data_jwt['nim'] . '/khs?f-is_nilai_akhir=1');
          $body = json_decode($req->getBody(), true);
 
          $attributes = [];
@@ -295,7 +295,7 @@ class Khs extends BaseController
          }
       }
 
-      return round(($total_bobot / $sks), 2);
+      return $total_bobot > 0 ? round(($total_bobot / $sks), 2) : 0;
    }
 
    private function hitungIPS(array $data): float
@@ -308,6 +308,6 @@ class Khs extends BaseController
          $total_bobot += intval($row['sks']) * floatval($row['nilai_angka']);
       }
 
-      return round(($total_bobot / $sks), 2);
+      return $total_bobot > 0 ? round(($total_bobot / $sks), 2) : 0;
    }
 }

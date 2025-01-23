@@ -4,6 +4,7 @@ namespace App\Models\Akademik;
 
 use App\Models\Common;
 use CodeIgniter\Database\RawSql;
+use App\Libraries\Sevima;
 
 class Magang extends Common
 {
@@ -27,9 +28,38 @@ class Magang extends Common
       return $response;
    }
 
+   private function checkBiodata(string $nim): bool
+   {
+      $table = $this->db->table('tb_mahasiswa');
+      $table->where('nim', $nim);
+
+      return $table->countAllResults() > 0 ? true : false;
+   }
+
+   private function generateBiodataMahasiswa(string $nim): void
+   {
+      $sevima = new Sevima();
+      $data = $sevima->getBiodataMahasiswa($nim);
+
+      $checkBiodata = $this->checkBiodata($nim);
+      if (!$checkBiodata) {
+         $table = $this->db->table('tb_mahasiswa');
+         $table->insert([
+            'nim' => $data['nim'],
+            'nama' => $data['nama'],
+            'tmp_lahir' => $data['tempat_lahir'],
+            'tgl_lahir' => $data['tanggal_lahir'],
+            'jekel' => $data['jenis_kelamin'],
+            'id_prodi' => $data['id_program_studi'],
+            'alamat' => $data['alamat']
+         ]);
+      }
+   }
+
    public function submit(array $post): array
    {
       try {
+         $this->generateBiodataMahasiswa($post['nim']);
          $fields = ['tujuan_surat', 'lokasi_magang', 'no_kontak', 'alamat', 'id_prodi', 'nim', 'nama'];
          foreach ($fields as $field) {
             if (@$post[$field]) {
