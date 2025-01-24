@@ -11,12 +11,13 @@ const Context = () => {
 
    const [state, setState] = useState({
       isLoading: true,
+      dataSertifikat: {},
    });
 
    const getData = (nim) => {
       const formData = { nim };
 
-      const fetch = h.post(`/sertifikatkpm`, formData);
+      const fetch = h.post(`/sertifikatkpm/getdata`, formData);
       fetch.then((res) => {
          if (typeof res === "undefined") return;
 
@@ -26,7 +27,7 @@ const Context = () => {
             return;
          }
 
-         console.log(data);
+         setState((prev) => ({ ...prev, dataSertifikat: data }));
       });
       fetch.finally(() => {
          setState((prev) => ({ ...prev, isLoading: false }));
@@ -65,7 +66,13 @@ const Context = () => {
                         <div className="post-details">
                            <div className="post-inner">
                               <div className="post-content">
-                                 <p>Apakah anda ingin mengajukan permohonan pernyataan tidak menerima beasiswa?</p>
+                                 {h.objLength(state.dataSertifikat) ? (
+                                    h.buttons(`Download Sertifikat`, false, {
+                                       onClick: () => window.open(`${window.apiPath}/sertifikatkpm/cetak/${state.dataSertifikat.id}`, "_blank"),
+                                    })
+                                 ) : (
+                                    <p>Anda belum memiliki sertifikat KPM!</p>
+                                 )}
                               </div>
                            </div>
                         </div>

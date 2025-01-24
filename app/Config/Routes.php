@@ -2,7 +2,15 @@
 
 $routes = service('routes');
 
-$routes->get('absen', 'Absen::index');
+function sertifikatKPM($routes): void
+{
+   $routes->group('sertifikatkpm', function ($routes) {
+      $routes->get('cetak/(:num)', 'SertifikatKPM::cetak/$1');
+
+      $routes->post('getdata', 'SertifikatKPM::getData');
+   });
+}
+sertifikatKPM($routes);
 
 $routes->group('mahasiswa', function ($routes) {
    $routes->get('/', 'Mahasiswa::index');
