@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use chillerlan\QRCode\QRCode;
 use Dompdf\Dompdf;
 use App\Controllers\BaseController;
 use App\Models\SertifikatKPM as Model;
@@ -81,6 +82,9 @@ class SertifikatKPM extends BaseController
          $data = file_get_contents($logo_uin);
          $base64_logo_uin = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
+         $linkBerkas = 'https://mael.api.ar-raniry.ac.id/sertifikatkpm/cetak/' . $row['id'];
+         $qrCode = (new QRCode)->render($linkBerkas);
+
          $dompdf = new Dompdf();
          $dompdf->setPaper('A4', 'landscape');
          $dompdf->loadHtml('<!DOCTYPE html>
@@ -120,10 +124,7 @@ class SertifikatKPM extends BaseController
                         <td style="width: 50%; font-size: 18px; padding-left: 60px;">
                            Banda Aceh, ' . date('d F Y', strtotime($row['tanggal_sertifikat'])) . '<br/>
                            Rektor,<br/>
-                           <br/>
-                           <br/>
-                           <br/>
-                           <br/>
+                           <img src="' . $qrCode . '" style="width: 100px; height: 100px;" />
                            <br/>
                            Prof. Dr. H. Mujiburrahman, M.Ag.<br/>
                            NIP: 197109082001121001
