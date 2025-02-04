@@ -46,7 +46,7 @@ const App = () => {
 
    useLayoutEffect(() => {
       const keycloak = new Keycloak({
-         url: "https://keycloak.ar-raniry.ac.id/auth/",
+         url: "https://iam.ar-raniry.ac.id/",
          realm: "uinar",
          clientId: "mael",
       });

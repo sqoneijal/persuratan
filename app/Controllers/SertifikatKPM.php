@@ -120,7 +120,7 @@ class SertifikatKPM extends BaseController
                   <div style="text-align: justify; padding-top: 20px; font-size: 18px; padding-left: 50px; padding-right: 50px;">Dan kepada yang bersangkutan diberikan sertifikat ini untuk dapat dipergunakan sebagaimana mestinya.</div>
                   <table style="width: 100%; border-collapse: collapse; padding-top: 20px;">
                      <tr>
-                        <td style="text-align: center; vertical-align: middle">pas photo<br/>3x4</td>
+                        <td style="text-align: center; vertical-align: middle"></td>
                         <td style="width: 50%; font-size: 18px; padding-left: 60px;">
                            Banda Aceh, ' . date('d F Y', strtotime($row['tanggal_sertifikat'])) . '<br/>
                            Rektor,<br/>

@@ -25,7 +25,7 @@ const Home = () => {
                         <div className="banner-button-group">
                            {h.objLength(init) ? (
                               <a
-                                 href={`https://keycloak.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
+                                 href={`https://iam.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
                                     location.href
                                  )}`}
                                  className="button-4">
@@ -33,7 +33,7 @@ const Home = () => {
                               </a>
                            ) : (
                               <a
-                                 href={`https://keycloak.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/auth?client_id=mael&redirect_uri=${encodeURIComponent(
+                                 href={`https://iam.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/auth?client_id=mael&redirect_uri=${encodeURIComponent(
                                     location.href
                                  )}&response_mode=fragment&response_type=code&scope=openid`}
                                  className="button-4">
@@ -79,7 +79,7 @@ const Home = () => {
                                     </p>
                                     {h.objLength(init) ? (
                                        <a
-                                          href={`https://keycloak.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
+                                          href={`https://iam.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
                                              location.href
                                           )}`}
                                           className="get-button white light">
@@ -87,7 +87,7 @@ const Home = () => {
                                        </a>
                                     ) : (
                                        <a
-                                          href={`https://keycloak.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/auth?client_id=mael&redirect_uri=${encodeURIComponent(
+                                          href={`https://iam.ar-raniry.ac.id/auth/realms/uinar/protocol/openid-connect/auth?client_id=mael&redirect_uri=${encodeURIComponent(
                                              location.href
                                           )}&response_mode=fragment&response_type=code&scope=openid`}
                                           className="get-button white light">
