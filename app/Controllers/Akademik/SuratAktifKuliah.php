@@ -11,6 +11,15 @@ use chillerlan\QRCode\QRCode;
 class SuratAktifKuliah extends BaseController
 {
 
+   public function initPage(): object
+   {
+      $sevima = new \App\Libraries\Sevima();
+      $content = [
+         'daftarPeriode' => $sevima->getDaftarPeriode()
+      ];
+      return $this->respond($content);
+   }
+
    public function status(): object
    {
       $response = ['status' => false, 'errors' => []];
@@ -34,15 +43,26 @@ class SuratAktifKuliah extends BaseController
 
       $validation = new Validate();
       if ($this->validate($validation->pengajuan())) {
-         $model = new Model();
-         $submit = $model->pengajuan($this->post);
+         $checkStatusIsiKrs = $this->checkStatusIsiKRS($this->post);
+         if ($checkStatusIsiKrs) {
+            $model = new Model();
+            $submit = $model->pengajuan($this->post);
 
-         $response = array_merge($submit, ['errors' => []]);
+            $response = array_merge($submit, ['errors' => []]);
+         } else {
+            $response['message'] = 'Anda belum mengisi KRS pada periode ini atau KRS yang sudah anda isikan belum disetujui!';
+         }
       } else {
          $response['message'] = 'Tolong periksa kembali inputan anda!';
          $response['errors'] = \Config\Services::validation()->getErrors();
       }
       return $this->respond($response);
+   }
+
+   private function checkStatusIsiKRS(array $post): bool
+   {
+      $sevima = new \App\Libraries\Sevima();
+      return $sevima->getStatusIsiKRS($post);
    }
 
    public function getDetailBiodata(string $slug): array

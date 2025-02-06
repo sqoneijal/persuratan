@@ -70,6 +70,23 @@ class Sevima extends BaseController
       }
    }
 
+   public function getDaftarPeriode(): object
+   {
+      try {
+         $req = $this->curl->request('GET', 'periode');
+         $body = json_decode($req->getBody(), true);
+
+         $content = [];
+         foreach ($body['data'] as $row) {
+            $content = $row['attributes'];
+         }
+
+         return $this->respond(['status' => true, 'content' => $content]);
+      } catch (\Exception $e) {
+         return $this->respond(['status' => false, 'message' => 'Tidak ada data yang ditemukan.']);
+      }
+   }
+
    public function getPeriodeAktif(): object
    {
       try {

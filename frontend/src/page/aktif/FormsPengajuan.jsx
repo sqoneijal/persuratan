@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import * as h from "~/src/Helpers";
 
 const FormsPengajuan = ({ initPage }) => {
    const { init, module } = useSelector((e) => e.redux);
-   const { periode } = module;
+   const { detailContent } = module;
 
    // bool
    const [isSubmit, setIsSubmit] = useState(false);
 
    const submit = (e) => {
       e.preventDefault();
-      const formData = { nim: h.parse("preferred_username", init), periode: h.parse("nama_singkat", periode) };
+      const formData = { nim: h.parse("preferred_username", init), periode: h.parse("detailNavActive", detailContent) };
 
       setIsSubmit(true);
       const fetch = h.post(`/akademik/surataktifkuliah/pengajuan`, formData);
@@ -25,11 +24,11 @@ const FormsPengajuan = ({ initPage }) => {
             return;
          }
 
-         h.notification(data.status, data.message);
-
-         if (!data.status) return;
-
-         initPage(h.parse("preferred_username", init), h.parse("nama_singkat", periode));
+         if (data.status) {
+            window.location.reload();
+         } else {
+            h.notification(false, data.message);
+         }
       });
       fetch.finally(() => {
          setIsSubmit(false);
@@ -37,28 +36,18 @@ const FormsPengajuan = ({ initPage }) => {
    };
 
    return (
-      <section className="padding-top padding-bottom blog-single-section">
-         <Container>
-            <Row className="justify-content-center">
-               <Col lg={8} xl={8}>
-                  <article>
-                     <div className="post-details">
-                        <div className="post-inner">
-                           <div className="post-header">
-                              <h3 className="title">Apakah anda ingin mengajukan surat keterangan aktif kuliah!</h3>
-                           </div>
-                           <div className="tags-area">
-                              {h.buttons(`Ajukan Surat Keterangan Aktif Kuliah`, isSubmit, {
-                                 onClick: isSubmit ? null : submit,
-                              })}
-                           </div>
-                        </div>
-                     </div>
-                  </article>
-               </Col>
-            </Row>
-         </Container>
-      </section>
+      <div className="post-details">
+         <div className="post-inner">
+            <div className="post-header">
+               <h3 className="title">Apakah anda ingin mengajukan surat keterangan aktif kuliah!</h3>
+            </div>
+            <div className="tags-area">
+               {h.buttons(`Ajukan Surat Keterangan Aktif Kuliah`, isSubmit, {
+                  onClick: isSubmit ? null : submit,
+               })}
+            </div>
+         </div>
+      </div>
    );
 };
 export default FormsPengajuan;

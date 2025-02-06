@@ -20,6 +20,42 @@ class Sevima
       ]);
    }
 
+   public function getStatusIsiKRS(array $post): bool
+   {
+      $req = $this->curl->request('GET', 'mahasiswa/' . $post['nim'] . '/krs?f-id_periode=' . $post['periode']);
+      $body = json_decode($req->getBody(), true);
+
+      $status = false;
+      foreach ($body['data'] as $row) {
+         $attributes = $row['attributes'];
+
+         if ($attributes['is_krs_disetujui'] === '1') {
+            $status = true;
+            break;
+         }
+      }
+      return $status;
+   }
+
+   public function getDaftarPeriode(): array
+   {
+      try {
+         $req = $this->curl->request('GET', 'periode');
+         $body = json_decode($req->getBody(), true);
+
+         $content = [];
+         foreach ($body['data'] as $row) {
+            if ($row['attributes']['nama_singkat']) {
+               array_push($content, $row['attributes']);
+            }
+         }
+
+         return $content;
+      } catch (\Exception $e) {
+         return ['status' => false, 'message' => 'Tidak ada data yang ditemukan.'];
+      }
+   }
+
    public function getDetailProgramStudi(string $id_prodi): array
    {
       try {

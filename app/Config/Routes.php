@@ -90,6 +90,7 @@ function akademikPenelitian($routes): void
 function akademikSuratAktifKuliah($routes): void
 {
    $routes->group('surataktifkuliah', function ($routes) {
+      $routes->get('initpage', 'SuratAktifKuliah::initPage');
       $routes->get('cetak/(:num)', 'SuratAktifKuliah::cetak/$1');
 
       $routes->post('status', 'SuratAktifKuliah::status');

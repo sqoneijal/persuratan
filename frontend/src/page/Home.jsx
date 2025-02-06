@@ -25,8 +25,8 @@ const Home = () => {
                         <div className="banner-button-group">
                            {h.objLength(init) ? (
                               <a
-                                 href={`https://iam.ar-raniry.ac.id/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
-                                    location.href
+                                 href={`https://iam.ar-raniry.ac.id/realms/uinar/protocol/openid-connect/logout?client_id=mael&post_logout_redirect_uri=${encodeURIComponent(
+                                    window.location.href
                                  )}`}
                                  className="button-4">
                                  Logout
@@ -79,8 +79,8 @@ const Home = () => {
                                     </p>
                                     {h.objLength(init) ? (
                                        <a
-                                          href={`https://iam.ar-raniry.ac.id/realms/uinar/protocol/openid-connect/logout?redirect_uri=${encodeURIComponent(
-                                             location.href
+                                          href={`https://iam.ar-raniry.ac.id/realms/uinar/protocol/openid-connect/logout?client_id=mael&post_logout_redirect_uri=${encodeURIComponent(
+                                             window.location.href
                                           )}`}
                                           className="get-button white light">
                                           Logout
