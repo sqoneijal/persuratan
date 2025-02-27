@@ -11,7 +11,8 @@ const FormsPengajuan = ({ initPage }) => {
 
    const submit = (e) => {
       e.preventDefault();
-      const formData = { nim: h.parse("preferred_username", init), periode: h.parse("detailNavActive", detailContent) };
+      // const formData = { nim: h.parse("preferred_username", init), periode: h.parse("detailNavActive", detailContent) };
+      const formData = { nim: 230303020, periode: h.parse("detailNavActive", detailContent) };
 
       setIsSubmit(true);
       const fetch = h.post(`/akademik/surataktifkuliah/pengajuan`, formData);

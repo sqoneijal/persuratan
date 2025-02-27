@@ -49,7 +49,7 @@ const Context = () => {
    };
 
    useLayoutEffect(() => {
-      if (module.isLogin && state.isLoading) initPage();
+      if (h.objLength(module) && state.isLoading) initPage();
       return () => {};
    }, [module, state]);
 
