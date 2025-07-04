@@ -44,6 +44,23 @@ const App = () => {
       );
    };
 
+   const checkApakahYangLoginAdmin = (username) => {
+      const formData = { username };
+
+      const fetch = h.post(`/role/islogin`, formData);
+      fetch.then((res) => {
+         if (typeof res === "undefined") return;
+
+         const { data } = res;
+         if (typeof data.code !== "undefined" && h.parse("code", data) !== 200) {
+            h.notification(false, h.parse("message", data));
+            return;
+         }
+
+         if (!data.status) return;
+      });
+   };
+
    useLayoutEffect(() => {
       const keycloak = new Keycloak({
          url: "https://iam.ar-raniry.ac.id/",
@@ -60,6 +77,10 @@ const App = () => {
          dispatch(setInit(keycloak.idTokenParsed));
          dispatch(setModule({ ...module, isLogin: true }));
          initPage(keycloak.idTokenParsed.preferred_username);
+
+         if (keycloak.realmAccess.roles.includes("FUNG")) {
+            checkApakahYangLoginAdmin(keycloak.idTokenParsed.preferred_username);
+         }
       };
 
       window.addEventListener("scroll", () => {

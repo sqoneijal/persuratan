@@ -97,3 +97,12 @@ function akademikSuratAktifKuliah($routes): void
       $routes->post('pengajuan', 'SuratAktifKuliah::pengajuan');
    });
 }
+
+function role($routes): void
+{
+   $routes->group('role', function ($routes) {
+      $routes->post('islogin', 'Role::isLogin');
+   });
+}
+
+role($routes);
