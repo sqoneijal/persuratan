@@ -20,3 +20,4 @@ app/Controllers/BaseController.php
 app/Libraries/Feeder.php
 frontend/bundle
 frontend/build.sh
+.tmp.driveupload
