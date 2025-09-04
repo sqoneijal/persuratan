@@ -7,7 +7,7 @@ class SertifikatKPM extends Common
 
    public function getData(string $nim): array
    {
-      $table = $this->db_siakad->table('tb_peserta_kpm');
+      $table = $this->db_kpm->table('tb_peserta_kpm');
       $table->where('nim', $nim);
       $table->where('boleh_ikut_kpm', 't');
 
@@ -27,7 +27,7 @@ class SertifikatKPM extends Common
 
    public function getDetailCetak(int $id): array
    {
-      $table = $this->db_siakad->table('tb_peserta_kpm');
+      $table = $this->db_kpm->table('tb_peserta_kpm');
       $table->where('id', $id);
       $table->where('boleh_ikut_kpm', 't');
 

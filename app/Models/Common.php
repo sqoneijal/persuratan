@@ -8,8 +8,8 @@ class Common extends Model
 {
 
    protected $db;
-   protected $db_siakad;
    protected $mael;
+   protected $kpm;
 
    public function __construct()
    {
@@ -17,6 +17,6 @@ class Common extends Model
 
       $this->db = \Config\Database::connect('default');
       $this->mael = \Config\Database::connect('mael');
-      $this->db_siakad = \Config\Database::connect('siakad');
+      $this->db_kpm = \Config\Database::connect('kpm');
    }
 }

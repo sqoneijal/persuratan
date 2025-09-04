@@ -11,7 +11,7 @@ class Magang extends Common
 
    public function getDetailCetak(int $id): array
    {
-      $table = $this->db_siakad->table('tb_surat_magang');
+      $table = $this->db_kpm->table('tb_surat_magang');
       $table->where('id', $id);
 
       $get = $table->get();
@@ -73,7 +73,7 @@ class Magang extends Common
          $data['id_semester'] = substr($post['periode'], -1);
          $data['uploaded'] = new RawSql('now()');
 
-         $table = $this->db_siakad->table('tb_surat_magang');
+         $table = $this->db_kpm->table('tb_surat_magang');
          $table->ignore(true)->insert($data);
 
          return ['status' => true, 'message' => 'Pengajuan surat magang berhasil dilakukan.'];
@@ -85,7 +85,7 @@ class Magang extends Common
    public function getData(array $post): array
    {
       try {
-         $table = $this->db_siakad->table('tb_surat_magang');
+         $table = $this->db_kpm->table('tb_surat_magang');
          $table->where('nim', $post['nim']);
          $table->where('concat(tahun_ajaran, id_semester)', $post['periode']);
 

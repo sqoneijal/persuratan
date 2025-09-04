@@ -7,7 +7,7 @@ use App\Controllers\BaseController;
 class Sevima extends BaseController
 {
 
-   public function transkripAkhir(): object
+   public function transkripAkhir()
    {
       try {
          $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/transkrip');
@@ -24,7 +24,7 @@ class Sevima extends BaseController
       }
    }
 
-   public function getKhs(): object
+   public function getKhs()
    {
       try {
          $req = $this->curl->request('GET', 'mahasiswa/' . $this->post['nim'] . '/khs?f-is_nilai_akhir=1');
