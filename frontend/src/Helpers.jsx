@@ -1,7 +1,6 @@
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/id";
-import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import toastr from "toastr";
 import { uid } from "uid/secure";
@@ -12,6 +11,29 @@ export const form_text = (label, name, config = {}, required = false, errors = {
    return (
       <Form.Floating className="mb-2">
          <Form.Control type="text" title={label} placeholder={label} id={uniqueID} name={name} {...config} isInvalid={is_invalid(name, errors)} />
+         <Form.Label htmlFor={uniqueID} className={required ? "required" : ""}>
+            {label}
+         </Form.Label>
+         {msg_response(name, errors)}
+      </Form.Floating>
+   );
+};
+
+export const form_select = (label, name, config = {}, required = false, errors = {}) => {
+   const uniqueID = `${name}_${uid(32)}`;
+
+   return (
+      <Form.Floating className="mb-2">
+         <Form.Select title={label} placeholder={label} id={uniqueID} name={name} {...config} isInvalid={is_invalid(name, errors)}>
+            <option value="">--pilih--</option>
+            {config?.options?.map((row) => {
+               return (
+                  <option key={row.value} value={row.value}>
+                     {row.label}
+                  </option>
+               );
+            })}
+         </Form.Select>
          <Form.Label htmlFor={uniqueID} className={required ? "required" : ""}>
             {label}
          </Form.Label>

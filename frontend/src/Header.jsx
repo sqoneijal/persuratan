@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
@@ -13,14 +13,15 @@ const Header = () => {
 
    const navigation = [
       { label: "KHS", pathname: "/khs" },
-      { label: "Transkrip Akhir", pathname: "/transkripakhir" },
+      { label: "Transkrip", pathname: "/transkripakhir" },
       { label: "Aktif", pathname: "/aktif" },
       // { label: "Cuti", pathname: "/cuti" },
       // { label: "Masih Kuliah", pathname: "/masihkuliah" },
       { label: "Tidak Menerima Beasiswa", pathname: "/tidakmenerimabeasiswa" },
       { label: "Penelitian", pathname: "/penelitian" },
       { label: "Magang", pathname: "/magang" },
-      { label: "Sertifikat KPM", pathname: "/sertifikatkpm" },
+      { label: "KPM", pathname: "/sertifikatkpm" },
+      { label: "Refund", pathname: "/refund" },
    ];
 
    const handleClickMobileNav = (e) => {

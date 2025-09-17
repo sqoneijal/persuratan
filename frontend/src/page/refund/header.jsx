@@ -15,7 +15,7 @@ const Header = () => {
          </div>
          <Container>
             <div className="page-header-content cl-white">
-               <h2 className="title">Sertifikat KPM</h2>
+               <h2 className="title">Refund Semester Pendek</h2>
             </div>
          </Container>
       </section>

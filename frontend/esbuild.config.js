@@ -13,11 +13,13 @@ build({
    alias: {
       "~": "./",
    },
+   jsx: "automatic",
    jsxSideEffects: true,
    splitting: true,
    outdir: "./bundle",
    loader: {
       ".js": "jsx",
+      ".jsx": "jsx",
       ".png": "dataurl",
       ".jpg": "copy",
       ".ttf": "copy",

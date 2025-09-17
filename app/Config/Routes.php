@@ -106,3 +106,13 @@ function role($routes): void
 }
 
 role($routes);
+
+
+function refund($routes): void
+{
+   $routes->group('refund', function ($routes) {
+      $routes->post('getdata', 'Refund::getData');
+      $routes->post('submit', 'Refund::submit');
+   });
+}
+refund($routes);
