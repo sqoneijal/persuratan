@@ -43,6 +43,10 @@ const Page = () => {
    const renderStatus = (status) => {
       if (status === "belum") {
          return "Silahkan lengkapi data dibawah ini untuk dapat dilakukan pengembalian dana.";
+      } else if (status === "sudah") {
+         return "Pengajuan sedang diproses.";
+      } else if (status === "berhasil") {
+         return "Dana sudah dikirim ke rekening.";
       }
    };
 
@@ -64,6 +68,11 @@ const Page = () => {
          }
 
          setErrors(data.errors);
+
+         if (data.status) {
+            h.notification(true, "Data berhasil disimpan.");
+            window.location.reload();
+         }
       });
       fetch.finally(() => {
          setIsSubmit(false);
@@ -86,6 +95,9 @@ const Page = () => {
                                  <h6 className="title">{renderStatus(input?.status)}</h6>
                               </div>
                               <div className="post-content">
+                                 <p style={{ color: "red", fontWeight: "bold" }}>
+                                    Nama rekening Bank harus sama dengan nama mahasiswa yang diajukan.
+                                 </p>
                                  {Object.keys(input).length > 0 ? (
                                     <Form className="contact-form" style={{ width: "100%" }}>
                                        {h.form_text(
@@ -104,6 +116,7 @@ const Page = () => {
                                           {
                                              onChange: ({ target: { name, value } }) => setInput((prev) => ({ ...prev, [name]: value })),
                                              value: input?.nama_rekening,
+                                             disabled: input?.status !== "belum",
                                           },
                                           true,
                                           errors
@@ -114,6 +127,7 @@ const Page = () => {
                                           {
                                              onChange: ({ target: { name, value } }) => setInput((prev) => ({ ...prev, [name]: value })),
                                              value: input?.nomor_rekening,
+                                             disabled: input?.status !== "belum",
                                           },
                                           true,
                                           errors
@@ -128,6 +142,7 @@ const Page = () => {
                                                 { value: "bas", label: "Bank Aceh (BAS)" },
                                                 { value: "bsi", label: "Bank Syariah Indonesia (BSI)" },
                                              ],
+                                             disabled: input?.status !== "belum",
                                           },
                                           true,
                                           errors

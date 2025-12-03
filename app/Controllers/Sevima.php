@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Common;
 
 class Sevima extends BaseController
 {
@@ -63,6 +64,11 @@ class Sevima extends BaseController
       try {
          $req = $this->curl->request('GET', 'mahasiswa/' . $slug);
          $body = json_decode($req->getBody(), true);
+
+         if (!empty($body)) {
+            $common = new Common();
+            $common->insertMahasiswa($body['attributes']);
+         }
 
          return $this->respond(['status' => true, 'data' => $body['attributes']]);
       } catch (\Exception $e) {
