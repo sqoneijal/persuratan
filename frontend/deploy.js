@@ -36,10 +36,10 @@ fs.rmSync(cssPath);
 console.log("✅ File bundle diberi hash:", { newJs, newCss });
 
 // 🔹 SSH ke server & hapus folder bundle lama
-execSync(`ssh -p 2212 debian@192.168.176.232 "cd persuratan/mael-frontend && sudo rm -rf bundle"`, { stdio: "inherit" });
+execSync(`ssh root@192.168.176.16 "cd /var/www/html/mael/frontend && sudo rm -rf bundle"`, { stdio: "inherit" });
 
 // 🔹 SCP upload bundle
-execSync(`scp -P 2212 -r bundle debian@192.168.176.232:/home/debian/persuratan/mael-frontend`, { stdio: "inherit" });
+execSync(`scp -r bundle root@192.168.176.16:/var/www/html/mael/frontend`, { stdio: "inherit" });
 
 // 🔹 Copy index-sample.html → index.html
 fs.copyFileSync(indexSample, indexHtml);
@@ -54,6 +54,6 @@ fs.writeFileSync(indexHtml, html);
 console.log("✅ index.html diperbarui");
 
 // 🔹 SCP upload index.html
-execSync(`scp -P 2212 index.html debian@192.168.176.232:/home/debian/persuratan/mael-frontend`, { stdio: "inherit" });
+execSync(`scp index.html root@192.168.176.16:/var/www/html/mael/frontend`, { stdio: "inherit" });
 
 console.log("🚀 Deploy selesai!");

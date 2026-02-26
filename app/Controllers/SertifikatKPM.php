@@ -52,7 +52,7 @@ class SertifikatKPM extends BaseController
       }
    }
 
-   public function cetak(int $id): void
+   public function cetak(int $id)
    {
       $model = new Model();
       $row = $model->getDetailCetak($id);
@@ -136,6 +136,7 @@ class SertifikatKPM extends BaseController
 
          $dompdf->render();
          $dompdf->stream("sertifikat_kpm.pdf", array("Attachment" => false));
+         exit();
       }
    }
 }

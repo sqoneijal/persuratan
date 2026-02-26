@@ -40,7 +40,7 @@ const App = () => {
                   return;
                }
             }
-         })
+         }),
       );
    };
 
@@ -129,5 +129,5 @@ root.render(
       <Router>
          <App />
       </Router>
-   </Provider>
+   </Provider>,
 );

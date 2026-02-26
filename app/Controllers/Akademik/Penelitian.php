@@ -59,7 +59,7 @@ class Penelitian extends BaseController
       }
    }
 
-   public function cetak(int $id): void
+   public function cetak(int $id)
    {
       $model = new Model();
       $row = $model->getDetailCetak($id);
@@ -203,6 +203,7 @@ class Penelitian extends BaseController
 
          $dompdf->render();
          $dompdf->stream("penelitian.pdf", array("Attachment" => false));
+         exit();
       }
    }
 

@@ -34,7 +34,7 @@ const CustomHeaderToggle = ({ children, eventKey }) => {
                   detailNavActive: eventKey,
                   detailSurat: data.status ? data.data : [],
                },
-            })
+            }),
          );
       });
    };

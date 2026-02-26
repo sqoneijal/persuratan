@@ -21,7 +21,7 @@ const Header = () => {
       { label: "Penelitian", pathname: "/penelitian" },
       { label: "Magang", pathname: "/magang" },
       { label: "KPM", pathname: "/sertifikatkpm" },
-      { label: "Refund", pathname: "/refund" },
+      // { label: "Refund", pathname: "/refund" },
    ];
 
    const handleClickMobileNav = (e) => {

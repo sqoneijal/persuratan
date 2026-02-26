@@ -207,6 +207,7 @@ class Magang extends BaseController
 
          $dompdf->render();
          $dompdf->stream("magang.pdf", array("Attachment" => false));
+         exit();
       }
    }
 

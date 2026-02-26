@@ -37,7 +37,7 @@ const Routing = () => {
          <Route path="/khs" loader={loader} element={<Khs />} />
          <Route path="/transkripakhir" loader={loader} element={<TranskripAkhir />} />
          <Route path="/sertifikatkpm" loader={loader} element={<SertifikatKPM />} />
-         <Route path="/refund" loader={loader} element={<Refund />} />
+         {/* <Route path="/refund" loader={loader} element={<Refund />} /> */}
       </Routes>
    );
 };

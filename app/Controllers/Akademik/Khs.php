@@ -277,6 +277,7 @@ class Khs extends BaseController
 
             $dompdf->render();
             $dompdf->stream("khs_" . $data_jwt['periode'] . "_.pdf", array("Attachment" => false));
+            exit();
          }
       } catch (\Exception $e) {
          die($e->getMessage());

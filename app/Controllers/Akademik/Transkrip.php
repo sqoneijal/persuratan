@@ -281,6 +281,7 @@ class Transkrip extends BaseController
 
             $dompdf->render();
             $dompdf->stream("transkrip_akhir.pdf", array("Attachment" => false));
+            exit();
          }
       } catch (\Exception $e) {
          die($e->getMessage());

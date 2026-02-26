@@ -59,7 +59,7 @@ class TidakMenerimaBeasiswa extends BaseController
       }
    }
 
-   public function cetak(int $id): void
+   public function cetak(int $id)
    {
       $model = new Model();
       $row = $model->getDetailCetak($id);
@@ -176,6 +176,7 @@ class TidakMenerimaBeasiswa extends BaseController
 
          $dompdf->render();
          $dompdf->stream("pernyataan_tidak_menerima_beasiswa.pdf", array("Attachment" => false));
+         exit();
       }
    }
 
